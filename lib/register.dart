@@ -13,7 +13,10 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   late final TextEditingController _phoneController;
   late final TextEditingController _passController;
+  late final TextEditingController _passController2;
   bool _isFilled = false;
+  bool _isChecked = false;
+
 
   @override
   void initState() {
@@ -22,11 +25,16 @@ class _RegisterState extends State<Register> {
     _passController = TextEditingController();
     _phoneController.addListener(_checkFields);
     _passController.addListener(_checkFields);
+    _passController2 = TextEditingController();
+    _passController2.addListener(_checkFields);
   }
 
   void _checkFields() {
     setState(() {
-      _isFilled = _phoneController.text.isNotEmpty && _phoneController.text.isNotEmpty;
+      _isFilled = _phoneController.text.isNotEmpty && _passController.text.isNotEmpty&& _passController2.text.isNotEmpty;
+      if (!_isFilled) {
+        _isChecked = false;
+      }
     });
   }
   @override
@@ -129,7 +137,7 @@ class _RegisterState extends State<Register> {
                   height: 15,
                 ),
                 TextField(
-                  controller: _passController,
+                  controller: _passController2,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -150,8 +158,8 @@ class _RegisterState extends State<Register> {
                       borderRadius: BorderRadius.all(Radius.circular(16.0)),
                     ),
                     contentPadding: EdgeInsets.symmetric(
-                      vertical: 12.0, // Отступы по вертикали
-                      horizontal: 12.0, // Отступы по горизонтали
+                      vertical: 12.0,
+                      horizontal: 12.0,
                     ),
                     prefixIcon: Transform.scale(
                       scale: 0.5,
@@ -178,10 +186,13 @@ class _RegisterState extends State<Register> {
                  CheckboxListTile(
                    controlAffinity: ListTileControlAffinity.leading,
                   title: Text('Я согласен с Правилами и условиями использования ', style: TextStyle(fontSize: 14),),
-                  value: true,
+                  value: _isChecked,
                   activeColor: ColorCollection.primary,
-                  onChanged: (newValue) {
 
+                  onChanged: (newValue) {
+                    setState(() {
+                      _isChecked = newValue ?? false;
+                    });
                   },
                 ),
                 Container(
@@ -189,14 +200,14 @@ class _RegisterState extends State<Register> {
                 ),
                 FilledButton(
                     style: FilledButton.styleFrom(
-                      backgroundColor: _isFilled ? Color(0xFFDF3A76) : Color(0xFF1D1B201F),
+                      backgroundColor: _isFilled&&_isChecked ? Color(0xFFDF3A76) : Color(0xFF1D1B201F),
                       padding:
                       EdgeInsets.symmetric(vertical: 16.0, horizontal: 90.0),
                     ),
                     onPressed: () {},
                     child: Text(
                       'Зарегистрироваться',
-                      style: TextStyle(color: _isFilled?Color(0xFFFFFFFF):Color(0xFF211A1D)),
+                      style: TextStyle(color: _isFilled&&_isChecked?Color(0xFFFFFFFF):Color(0xFF211A1D)),
                     )),
 
               ],),

@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:dex_pr/register_login.dart';
+import 'package:dex_pr/router.dart';
 import 'package:dex_pr/theme/color_collection.dart';
 import 'package:dex_pr/theme/svg_collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:go_router/go_router.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme(
@@ -33,11 +35,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
-      routes: {
-        '/loading': (context) => MyHomePage(),
-        '/register': (context) => EntryRegister(),
-      },
+
     );
   }
 }
@@ -53,12 +51,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => EntryRegister(), // Следующая страница - NextPage
-        ),
-      );
+    Future.delayed(Duration(seconds: 5), () {
+      context.push('/autorise');
     });
 
   }
@@ -67,7 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorCollection.onPrimary,
-
       body: Center(
         child: Column(children: [
           Container(

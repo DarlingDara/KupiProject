@@ -102,8 +102,8 @@ class _EnterState extends State<Enter> {
                         borderRadius: BorderRadius.all(Radius.circular(16.0)),
                       ),
                       contentPadding: EdgeInsets.symmetric(
-                        vertical: 12.0, // Отступы по вертикали
-                        horizontal: 12.0, // Отступы по горизонтали
+                        vertical: 12.0,
+                        horizontal: 12.0,
                       ),
                       prefixIcon: Transform.scale(
                         scale: 0.5,

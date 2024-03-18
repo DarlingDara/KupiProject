@@ -5,6 +5,7 @@ import 'package:dex_pr/theme/svg_collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class EntryRegister extends StatefulWidget {
   const EntryRegister({Key? key}) : super(key: key);
@@ -20,33 +21,31 @@ class _EntryRegister extends State<EntryRegister> {
       backgroundColor: ColorCollection.onPrimary,
       appBar: AppBar(
           backgroundColor: Color(0xFFFFF8F9),
-          leading: Column(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                      padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                      child: Row(
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamed('/loading');
-                              },
-                              icon: SvgPicture.asset(
-                                  'assets/svg/left-arrow.svg')),
-                          Container(
-                            color: Color(0xFFFFF8F9),
-                            padding: EdgeInsets.only(left: 4.0, right: 6.0),
-                            height: 21,
-                            width: 240,
-                          ),
-                          SvgPicture.asset('assets/svg/language.svg'),
-                        ],
-                      ))
-                ],
-              ),
-            ],
-          )),
+
+          leading:IconButton(
+            onPressed: () => context.go('/'),
+            icon: SvgPicture.asset(
+                'assets/svg/left-arrow.svg'),
+            iconSize: 24,),
+          actions: [
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(left: 14.0, right: 14.0),
+                        child: Row(
+                          children: [
+
+                            SvgPicture.asset('assets/svg/language.svg'),
+                          ],
+                        ))
+                  ],
+                ),
+              ],
+            )
+          ]
+          ),
       body: DefaultTabController(
         length: 2,
         child: Scaffold(
