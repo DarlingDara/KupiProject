@@ -1,7 +1,8 @@
 import 'package:dex_pr/theme/color_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:dex_pr/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 class Enter extends StatefulWidget {
   const Enter({Key? key}) : super(key: key);
 
@@ -70,7 +71,7 @@ class _EnterState extends State<Enter> {
                           'assets/svg/phone.svg',
                         ),
                       ),
-                      labelText: 'Телефон',
+                      labelText: S.of(context).Phone,
                       labelStyle: TextStyle(
                         color: Color(0xFF81737A),
                         fontSize: 14,
@@ -111,7 +112,7 @@ class _EnterState extends State<Enter> {
                           'assets/svg/lock.svg',
                         ),
                       ),
-                      labelText: 'Пароль',
+                      labelText: S.of(context).password,
                       labelStyle: TextStyle(
                         color: Color(0xFF81737A),
                         fontSize: 14,
@@ -135,7 +136,7 @@ class _EnterState extends State<Enter> {
                       ),
                       onPressed: () {},
                       child: Text(
-                        'Войти',
+                        S.of(context).enter,
                         style: TextStyle(color: _isFilled?Color(0xFFFFFFFF):Color(0xFF211A1D)),
                       )),
                   Container(
@@ -152,7 +153,7 @@ class _EnterState extends State<Enter> {
                       onPressed: () {
                       },
                       child: Text(
-                        'Забыли пароль',
+                        S.of(context).forgorPassword,
                         style: TextStyle(color: Color(0xFFDF3A76)),
                       )),
                 ],

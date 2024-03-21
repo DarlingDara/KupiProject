@@ -1,7 +1,9 @@
 import 'package:dex_pr/theme/color_collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:dex_pr/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -43,8 +45,8 @@ class _RegisterState extends State<Register> {
       backgroundColor: Color(0xFFFFF8F9),
       body: ListView(
         children: [
-          Padding(
-            padding: EdgeInsets.only(left: 16.0, top: 75.0, right: 16.0),
+          Container(
+            margin: EdgeInsets.only(left: 16.0, top: 75.0, right: 16.0),
 
             child: Column(
               children: [
@@ -79,7 +81,7 @@ class _RegisterState extends State<Register> {
                         'assets/svg/phone.svg',
                       ),
                     ),
-                    labelText: 'Телефон',
+                    labelText: S.of(context).Phone,
                     labelStyle: TextStyle(
                       color: Color(0xFF81737A),
                       fontSize: 14,
@@ -120,7 +122,7 @@ class _RegisterState extends State<Register> {
                         'assets/svg/lock.svg',
                       ),
                     ),
-                    labelText: 'Пароль',
+                    labelText: S.of(context).password,
                     labelStyle: TextStyle(
                       color: Color(0xFF81737A),
                       fontSize: 14,
@@ -167,7 +169,7 @@ class _RegisterState extends State<Register> {
                         'assets/svg/lock.svg',
                       ),
                     ),
-                    labelText: 'Повторите пароль',
+                    labelText: S.of(context).returnPassword,
                     labelStyle: TextStyle(
                       color: Color(0xFF81737A),
                       fontSize: 14,
@@ -185,7 +187,7 @@ class _RegisterState extends State<Register> {
                 ),
                  CheckboxListTile(
                    controlAffinity: ListTileControlAffinity.leading,
-                  title: Text('Я согласен с Правилами и условиями использования ', style: TextStyle(fontSize: 14),),
+                  title: Text(S.of(context).agreement, style: TextStyle(fontSize: 14),),
                   value: _isChecked,
                   activeColor: ColorCollection.primary,
 
@@ -206,7 +208,7 @@ class _RegisterState extends State<Register> {
                     ),
                     onPressed: () {},
                     child: Text(
-                      'Зарегистрироваться',
+                      S.of(context).register,
                       style: TextStyle(color: _isFilled&&_isChecked?Color(0xFFFFFFFF):Color(0xFF211A1D)),
                     )),
 

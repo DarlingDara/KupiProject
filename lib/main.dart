@@ -1,14 +1,18 @@
 import 'dart:async';
 
+import 'package:dex_pr/generated/l10n.dart';
 import 'package:dex_pr/register_login.dart';
 import 'package:dex_pr/router.dart';
 import 'package:dex_pr/theme/color_collection.dart';
 import 'package:dex_pr/theme/svg_collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:dex_pr/router.dart';
 void main() {
+
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -16,9 +20,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp.router(
       routerConfig: router,
       title: 'Flutter Demo',
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: Locale('ru'),
+      supportedLocales: S.delegate.supportedLocales,
       theme: ThemeData(
         colorScheme: ColorScheme(
           primary: ColorCollection.primary,
