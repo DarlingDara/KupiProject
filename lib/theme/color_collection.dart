@@ -14,4 +14,11 @@ class ColorCollection {
   static const onBackground = Color(0xFFDF3A76);
   static const surface = Color(0xFFFFF8F9);
   static const onSurface = Color(0xFF211A1D);
+  static const outline = Color(0xFF81737A);
+
+  static const onSurfaceVariant = Color(0xFF4F4449);
+
+  static const surfaceContainerLow = Color(0xFFFEF0F5);
+
+  static const outlineVariant = Color(0xFFD3C2C9);
 }

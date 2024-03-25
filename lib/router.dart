@@ -1,4 +1,5 @@
 import 'package:dex_pr/main.dart';
+import 'package:dex_pr/presentation/Widgets.dart';
 import 'package:dex_pr/register_login.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,6 +17,14 @@ final GoRouter router = GoRouter(
           builder: (BuildContext context, GoRouterState state) {
             return const EntryRegister();
           },
+          routes: <RouteBase>[
+            GoRoute(
+              path: 'recovery',
+              builder: (BuildContext context, GoRouterState state) {
+                return  RecoveryPassword();
+              },
+            ),
+          ],
         ),
       ],
     ),

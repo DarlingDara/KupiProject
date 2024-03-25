@@ -1,8 +1,9 @@
+import 'package:dex_pr/presentation/Widgets.dart';
 import 'package:dex_pr/theme/color_collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:dex_pr/generated/l10n.dart';
+import 'package:dex_pr/core/domain/intl/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -13,30 +14,38 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  late final TextEditingController _phoneController;
-  late final TextEditingController _passController;
-  late final TextEditingController _passController2;
+  late final TextEditingController phoneController;
+  late final TextEditingController passController;
+  late final TextEditingController passController2;
+  late final TextEditingController textController;
+  late final ValueNotifier<bool> _isFieldFilled;
   bool _isFilled = false;
   bool _isChecked = false;
-
+  late bool isCheckedRegister;
+  late final ValueNotifier<bool> isCheckedRegisterNotifier;
 
   @override
   void initState() {
     super.initState();
-    _phoneController = TextEditingController();
-    _passController = TextEditingController();
-    _phoneController.addListener(_checkFields);
-    _passController.addListener(_checkFields);
-    _passController2 = TextEditingController();
-    _passController2.addListener(_checkFields);
+    isCheckedRegisterNotifier = ValueNotifier<bool>(_isChecked);
+    phoneController = TextEditingController();
+    passController = TextEditingController();
+    phoneController.addListener(_checkFields);
+    passController.addListener(_checkFields);
+    passController2 = TextEditingController();
+    passController2.addListener(_checkFields);
+    textController = TextEditingController();
+    _isFieldFilled = ValueNotifier<bool>(false);
+    textController.addListener(_checkFields);
+    isCheckedRegister = _isChecked;
   }
 
   void _checkFields() {
     setState(() {
-      _isFilled = _phoneController.text.isNotEmpty && _passController.text.isNotEmpty&& _passController2.text.isNotEmpty;
-      if (!_isFilled) {
-        _isChecked = false;
-      }
+      _isFilled = phoneController.text.isNotEmpty && passController.text.isNotEmpty && passController2.text.isNotEmpty;
+      _isChecked=_isFilled;
+      isCheckedRegisterNotifier.value = _isFilled;
+
     });
   }
   @override
@@ -50,49 +59,13 @@ class _RegisterState extends State<Register> {
 
             child: Column(
               children: [
-                TextField(
-                  controller: _phoneController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 1.0,
-                        color: Color(0xFF81737A),
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 3.0,
-                        color: ColorCollection.primary,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: 12.0, // Отступы по вертикали
-                      horizontal: 12.0, // Отступы по горизонтали
-                    ),
-                    prefixIcon: Transform.scale(
-                      scale: 0.5,
-                      child: SvgPicture.asset(
-                        'assets/svg/phone.svg',
-                      ),
-                    ),
-                    labelText: S.of(context).Phone,
-                    labelStyle: TextStyle(
-                      color: Color(0xFF81737A),
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
+                PhoneField(phoneController: phoneController,context: context,),
                 Container(
                   height: 15,
                 ),
                 TextField(
-                  controller: _passController,
+                  controller: passController,
+                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -139,7 +112,8 @@ class _RegisterState extends State<Register> {
                   height: 15,
                 ),
                 TextField(
-                  controller: _passController2,
+                  controller: passController2,
+                  obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -169,7 +143,7 @@ class _RegisterState extends State<Register> {
                         'assets/svg/lock.svg',
                       ),
                     ),
-                    labelText: S.of(context).returnPassword,
+                    labelText: S.of(context).repeatPassword,
                     labelStyle: TextStyle(
                       color: Color(0xFF81737A),
                       fontSize: 14,
@@ -178,6 +152,7 @@ class _RegisterState extends State<Register> {
                       scale: 0.5,
                       child: SvgPicture.asset(
                         'assets/svg/close_eye.svg',
+
                       ),
                     ),
                   ),
@@ -187,7 +162,7 @@ class _RegisterState extends State<Register> {
                 ),
                  CheckboxListTile(
                    controlAffinity: ListTileControlAffinity.leading,
-                  title: Text(S.of(context).agreement, style: TextStyle(fontSize: 14),),
+                  title: Text(S.of(context).imAgreedWithPrivacyAndPolicyUsage, style: TextStyle(fontSize: 14),),
                   value: _isChecked,
                   activeColor: ColorCollection.primary,
 
@@ -200,17 +175,21 @@ class _RegisterState extends State<Register> {
                 Container(
                   height: 15,
                 ),
-                FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: _isFilled&&_isChecked ? Color(0xFFDF3A76) : Color(0xFF1D1B201F),
-                      padding:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 90.0),
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      S.of(context).register,
-                      style: TextStyle(color: _isFilled&&_isChecked?Color(0xFFFFFFFF):Color(0xFF211A1D)),
-                    )),
+          ValueListenableBuilder(
+            valueListenable: isCheckedRegisterNotifier,
+            builder: (context, value, child) {
+              return PinkButtonSend(
+                text: Text(
+                  S.of(context).registration,
+                  style: TextStyle(color: value ? Color(0xFFFFFFFF) : Color(0xFF211A1D)),
+                ),
+                context: context,
+                isChecked: value,
+              );
+            },
+          ),
+
+
 
               ],),
           ),

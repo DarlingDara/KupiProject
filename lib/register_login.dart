@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:dex_pr/generated/l10n.dart';
+import 'package:dex_pr/core/domain/intl/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 class EntryRegister extends StatefulWidget {
   const EntryRegister({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class _EntryRegister extends State<EntryRegister> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorCollection.onPrimary,
-      appBar: RegisterAppBar(context: context,),
+      appBar: RegisterAppBar(context: context,title1: '',),
       body: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -30,7 +30,7 @@ class _EntryRegister extends State<EntryRegister> {
             TabBar(
               tabs: [
                 Tab(
-                  text: S.of(context).enter,
+                  text: S.of(context).signIn,
                 ),
                 Tab(
                   text: S.of(context).registration,

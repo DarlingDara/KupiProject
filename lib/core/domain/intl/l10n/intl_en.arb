@@ -1,0 +1,16 @@
+{
+  "email": "Email",
+  "password": "Password",
+  "phone": "Phone",
+  "signIn": "Sign In",
+  "login": "Login",
+  "registration": "Registration",
+  "repeatPassword": "Repeat password",
+  "imAgreedWithPrivacyAndPolicyUsage": "I''m agreed with Privacy and Policy usage",
+  "signUp": "Sign Up",
+  "settings": "Settings",
+  "done": "Done",
+  "darkTheme": "Dark theme",
+  "forgotPassword": "Forgot password",
+  "Send": "Send"
+}

@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:dex_pr/generated/l10n.dart';
+import 'package:dex_pr/core/domain/intl/generated/l10n.dart';
 import 'package:dex_pr/register_login.dart';
 import 'package:dex_pr/router.dart';
 import 'package:dex_pr/theme/color_collection.dart';
 import 'package:dex_pr/theme/svg_collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -82,8 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
           SvgPicture.asset(
             ('assets/svg/logo.svg'),width: 90,height: 90,
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 150.0),
+          Container(
+            margin: EdgeInsets.only(top: 150.0),
             child: CircularProgressIndicator(
             )
           ),
